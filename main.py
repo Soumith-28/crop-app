@@ -10,17 +10,17 @@ from io import BytesIO
 
 working_dir = os.path.dirname(os.path.abspath(__file__))
 model_dir = os.path.join(working_dir, "model")
-model_path = os.path.join(model_dir, "plant_disease_model.h5")
+model_path = os.path.join(model_dir, "plant_disease_model.keras")
 
 # Download model if it doesn't exist
-model_url = "https://drive.google.com/uc?id=1mZmtyq3rXB7UQ-5e_myFdVy9sshKuPR3"
+model_url = "https://drive.google.com/uc?id=1v3YBmPyCVcqIYG5ttWGaxko-QmrwDi2m"
 if not os.path.exists(model_path):
     os.makedirs(model_dir, exist_ok=True)
     with st.spinner("Downloading model..."):
         gdown.download(model_url, model_path, quiet=False)
 
 # Load the pre-trained model
-model = tf.keras.models.load_model(model_path)
+model = tf.keras.models.load_model(model_path, compile=False)
 model.compile()
 
 class_indices = json.load(open(f"{working_dir}/class_indices.json"))
